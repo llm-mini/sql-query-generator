@@ -390,23 +390,3 @@ api.upload_file(
 
 print("Model card uploaded")
 
-import json
-from google.colab import files
-
-# Download the current notebook
-from google.colab import _message
-nb_json = _message.blocking_request('get_ipynb', request='', timeout_sec=120)
-
-# Strip widget metadata
-if "widgets" in nb_json.get("metadata", {}):
-    del nb_json["metadata"]["widgets"]
-
-# Save cleaned version
-cleaned_path = "/content/sql_query_generator_cleaned.ipynb"
-with open(cleaned_path, "w") as f:
-    json.dump(nb_json, f, indent=1)
-
-# Download to your machine
-files.download(cleaned_path)
-print("Cleaned notebook downloaded")
-
